@@ -1,8 +1,15 @@
 import App from "../App";
-import {createTheme, ThemeProvider} from "@mui/material";
+import {ThemeProvider} from "@mui/material";
+import {getDarkTheme, getLightTheme} from "../theme";
 
-export const AppWrapper = () => {
-  return <App />;
+export const AppWrapper = ({theme = 'light'}) => {
+  const themeValue = theme === 'light' ? getLightTheme() : getDarkTheme();
+
+  return (
+    <ThemeProvider theme={themeValue}>
+      <App />
+    </ThemeProvider>
+  );
 }
 
 export default {
@@ -10,10 +17,14 @@ export default {
   component: AppWrapper
 }
 
-export const ThemedWrapper = () => {
-  return (
-    <ThemeProvider theme={createTheme('light')}>
-      <App />
-    </ThemeProvider>
-  )
+export const LightThemed = {
+  args: {
+    theme: 'light'
+  }
+}
+
+export const DarkThemed = {
+  args: {
+    theme: 'dark'
+  }
 }
